@@ -12,12 +12,13 @@ v = np.array([1/3, 1/3, 1/3])
 data = []
 
 for i in range(25):
-    vn = v * A
+    vn = v.dot(A)
 
     norm = np.linalg.norm(vn - v)
     data.append(norm)
 
     v = vn
 
+print(v)
 plt.plot(data)
 plt.show()
