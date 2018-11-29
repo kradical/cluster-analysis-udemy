@@ -22,17 +22,8 @@ def plot_k_means(X, K, max_iter=20, beta=1.0):
 
     R = np.zeros((N, K))
 
-    grid_width = 5
-    grid_height = max_iter // grid_width
-    random_colors = np.random.random((K, 3))
-    plt.figure()
-
     costs = np.zeros(max_iter)
     for i in range(max_iter):
-        colors = R.dot(random_colors)
-        plt.subplot(grid_width, grid_height, i + 1)
-        plt.scatter(X[:,0], X[:,1], c=colors)
-
         # recalculate responsibility
         for k in range(K):
             for n in range(N):
@@ -50,6 +41,10 @@ def plot_k_means(X, K, max_iter=20, beta=1.0):
         if i > 0 and np.abs(costs[i] - costs[i-1]) < 0.1:
             break
 
+    random_colors = np.random.random((K, 3))
+    colors = R.dot(random_colors)
+
+    plt.scatter(X[:,0], X[:,1], c=colors)
     plt.show()
 
 def main():
@@ -69,7 +64,7 @@ def main():
     data[600:, :] = np.random.randn(300, D) + mean3
 
     clusters = 3
-    plot_k_means(data, clusters, max_iter=10)
+    plot_k_means(data, clusters)
 
     # clusters = 5
     # plot_k_means(data, clusters, max_iter=30)
